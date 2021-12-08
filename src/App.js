@@ -1,13 +1,14 @@
 import "./App.css";
 import { useState } from "react";
 import SearchBar from "./components/SearchBar";
-import Card from "./components/Card";
+import CardList from "./components/Cards/CardList";
+import Card from "./components/Cards/Card";
 
 const apiKey = "17940590-ac975b949658354994c9821cc";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-  let [searchResults, setSearchResults] = useState(null);
+  let [searchResults, setSearchResults] = useState([]);
 
   // sets the search query to whatever is inside the search bar
   const onInputChange = (event) => {
@@ -31,21 +32,16 @@ function App() {
     }
   };
 
-  // onSubmitSearch().then((results) => console.log(results));
-
   return (
     <div className="App">
       <SearchBar
         onInputChange={onInputChange}
         onSubmitSearch={onSubmitSearch}
       />
-      {!searchResults ? (
+      {searchResults.length === 0 ? (
         <h1>No Results</h1>
       ) : (
-        <Card
-          // searchResults={searchResults}
-          imageLink={searchResults.hits[0].largeImageURL}
-        />
+        <CardList results={searchResults} />
       )}
     </div>
   );
