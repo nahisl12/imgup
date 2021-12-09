@@ -1,13 +1,31 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import SearchBar from "./components/Navigation/SearchBar";
-import CardList from "./components/Cards/CardList";
+import Paginate from "./components/Pagination/Paginate";
 
 const apiKey = "17940590-ac975b949658354994c9821cc";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-  let [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [pageTotal, setPageTotal] = useState(0); // total number of pages from all the requests
+  const [currentPage, setCurrentPage] = useState(1); // will be attached to the fetch request to get the page
+  const [pageLimit] = useState(10);
+
+  const isInitialMount = useRef(true); // used to prevent use effect firing before currentPage is updated
+
+  useEffect(() => {
+    setPageTotal(Math.round(searchResults.totalHits / 20)); // calculates the total amount of pages if 20 results each
+  }, [searchResults]);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      onSubmitSearch();
+    }
+    // eslint-disable-next-line
+  }, [currentPage]);
 
   // sets the search query to whatever is inside the search bar
   const onInputChange = (event) => {
@@ -18,7 +36,7 @@ function App() {
   const onSubmitSearch = async () => {
     try {
       let apiRequest = await fetch(
-        `https://pixabay.com/api/?key=${apiKey}&per_page=10&q=${searchQuery}`
+        `https://pixabay.com/api/?key=${apiKey}&page=${currentPage}&per_page=20&q=${searchQuery}`
       );
 
       let data = await apiRequest.json();
@@ -40,7 +58,13 @@ function App() {
       {searchResults.length === 0 ? (
         <h1>No Results</h1>
       ) : (
-        <CardList results={searchResults} />
+        <Paginate
+          searchResults={searchResults}
+          pageTotal={pageTotal}
+          pageLimit={pageLimit}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       )}
     </div>
   );
