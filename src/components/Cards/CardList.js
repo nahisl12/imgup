@@ -1,11 +1,12 @@
 import React from "react";
+import "./CardStyle.css";
 import Card from "./Card";
 
 const CardList = ({ results }) => {
   return (
-    <div>
+    <div className="card-container">
       {results.hits.map((image, index) => {
-        return <Card link={image.largeImageURL} key={index} />;
+        return <Card link={image.webformatURL} key={index} />;
       })}
     </div>
   );

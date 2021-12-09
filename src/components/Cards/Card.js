@@ -1,9 +1,10 @@
 import React from "react";
+import "./CardStyle.css";
 
 const Card = ({ link }) => {
   return (
-    <div>
-      <img src={link} alt="searchResult"></img>
+    <div className="card-outer">
+      <img className="card-img" src={link} alt="searchResult"></img>
     </div>
   );
 };

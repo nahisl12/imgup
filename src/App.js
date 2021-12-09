@@ -1,8 +1,7 @@
 import "./App.css";
 import { useState } from "react";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/Navigation/SearchBar";
 import CardList from "./components/Cards/CardList";
-import Card from "./components/Cards/Card";
 
 const apiKey = "17940590-ac975b949658354994c9821cc";
 
@@ -19,7 +18,7 @@ function App() {
   const onSubmitSearch = async () => {
     try {
       let apiRequest = await fetch(
-        `https://pixabay.com/api/?key=${apiKey}&per_page=3&q=${searchQuery}`
+        `https://pixabay.com/api/?key=${apiKey}&per_page=10&q=${searchQuery}`
       );
 
       let data = await apiRequest.json();
