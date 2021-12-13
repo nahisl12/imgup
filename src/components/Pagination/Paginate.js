@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardList from "../Cards/CardList";
+import "./Paginate.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Paginate = ({
   searchResults,
@@ -8,6 +11,10 @@ const Paginate = ({
   currentPage,
   setCurrentPage,
 }) => {
+  useEffect(() => {
+    window.scrollTo({ behavior: "smooth", top: "0px" });
+  }, [currentPage]);
+
   const nextPage = () => {
     if (currentPage !== pageTotal) {
       setCurrentPage(currentPage + 1);
@@ -41,30 +48,26 @@ const Paginate = ({
     <div>
       <CardList results={searchResults} />
 
-      {pagesList().map((num, index) => {
-        return (
-          <button onClick={changePage} key={index}>
-            {index + 1}
-          </button>
-        );
-      })}
+      <div className="button-container">
+        <button className="page-button" onClick={prevPage}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
 
-      <div>
-        <button onClick={prevPage}>{"<"}</button>
+        {pagesList().map((num, index) => {
+          return (
+            <button className="page-button" onClick={changePage} key={index}>
+              {index + 1}
+            </button>
+          );
+        })}
 
-        <button onClick={nextPage}>{">"}</button>
+        <button className="page-button" onClick={nextPage}>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </button>
       </div>
     </div>
   );
 };
-
-// {Array.from(Array(25), (element, index) => {
-//   return (
-//     <button onClick={changePage} key={index}>
-//       {index + 1}
-//     </button>
-//   );
-// })}
 
 // {pageNumbers().map((number, index) => {
 //   return (

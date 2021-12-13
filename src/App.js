@@ -13,9 +13,14 @@ function App() {
   const [pageLimit] = useState(10);
 
   const isInitialMount = useRef(true); // used to prevent use effect firing before currentPage is updated
+  const pageInitialMount = useRef(true); // used to prevent setPageTotal from firing before its actually set
 
   useEffect(() => {
-    setPageTotal(Math.round(searchResults.totalHits / 20)); // calculates the total amount of pages if 20 results each
+    if (pageInitialMount.current) {
+      pageInitialMount.current = false;
+    } else {
+      setPageTotal(Math.round(searchResults.totalHits / 20)); // calculates the total amount of pages if 20 results each
+    }
   }, [searchResults]);
 
   useEffect(() => {
