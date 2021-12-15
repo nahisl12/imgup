@@ -1,11 +1,21 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Routes,
+  Link,
+} from "react-router-dom";
 import SearchBar from "./components/Navigation/SearchBar";
 import Paginate from "./components/Pagination/Paginate";
+import Login from "./components/Navigation/Login";
+import Register from "./components/Navigation/Register";
 
 const apiKey = "17940590-ac975b949658354994c9821cc";
 
 function App() {
+  const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [pageTotal, setPageTotal] = useState(0); // total number of pages from all the requests
@@ -56,21 +66,61 @@ function App() {
 
   return (
     <div className="App">
-      <SearchBar
-        onInputChange={onInputChange}
-        onSubmitSearch={onSubmitSearch}
-      />
-      {searchResults.length === 0 ? (
-        <h1>No Results</h1>
-      ) : (
-        <Paginate
-          searchResults={searchResults}
-          pageTotal={pageTotal}
-          pageLimit={pageLimit}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      )}
+      <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            {!user ? (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            ) : (
+              <Link to="/logout">Logout</Link>
+            )}
+          </ul>
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <SearchBar
+                    onInputChange={onInputChange}
+                    onSubmitSearch={onSubmitSearch}
+                  />
+                  {searchResults.length === 0 ? (
+                    <h1>No Results</h1>
+                  ) : (
+                    <Paginate
+                      searchResults={searchResults}
+                      pageTotal={pageTotal}
+                      pageLimit={pageLimit}
+                      currentPage={currentPage}
+                      setCurrentPage={setCurrentPage}
+                    />
+                  )}
+                </>
+              }
+            />
+
+            {!user ? (
+              <>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </>
+            ) : (
+              <Route path="/logout" element={<h1>logging out</h1>} />
+            )}
+          </Routes>
+        </nav>
+      </Router>
     </div>
   );
 }
