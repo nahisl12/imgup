@@ -1,6 +1,6 @@
 # imgup application
 
-## This project is a full-stack website/application for image uploading made using ReactJS for the front-end, NodeJs/Express for the back-end with JWT for authentification.
+## This project is a full-stack website/application for image uploading made using ReactJS for the front-end, NodeJs/Express and MongDB for the back-end with JWT for authentification.
 ## This repository is for the front-end. The back-end repo can be found at "imgup-api"
 
 ### `npm start`
