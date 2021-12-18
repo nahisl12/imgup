@@ -37,12 +37,16 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form>
-        <div className="registerUsername">
-          <label htmlFor="username">Username</label>
+    <div className="login-container">
+      <form className="form-container">
+        <h1>Register</h1>
+
+        <div className="login-username">
+          <div className="input-label">
+            <label htmlFor="username">Username</label>
+          </div>
           <input
+            className="input-box"
             type="text"
             id="username"
             placeholder="Enter your Username"
@@ -50,9 +54,12 @@ const Register = () => {
           />
         </div>
 
-        <div className="registerEmail">
-          <label htmlFor="email">Email</label>
+        <div className="login-username">
+          <div className="input-label">
+            <label htmlFor="email">Email</label>
+          </div>
           <input
+            className="input-box"
             type="email"
             name="email"
             id="email"
@@ -61,9 +68,12 @@ const Register = () => {
           />
         </div>
 
-        <div className="registerPassword">
-          <label htmlFor="password">Password</label>
+        <div className="login-password">
+          <div className="input-label">
+            <label htmlFor="password">Password</label>
+          </div>
           <input
+            className="input-box"
             type="password"
             name="password"
             id="password"
@@ -72,7 +82,12 @@ const Register = () => {
           />
         </div>
 
-        <button type="submit" onClick={onSubmitRegister}>
+        <button
+          type="submit"
+          className="button-blue"
+          id="button-login"
+          onClick={onSubmitRegister}
+        >
           Register
         </button>
       </form>

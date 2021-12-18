@@ -9,7 +9,9 @@ const SearchBar = ({ onInputChange, onSubmitSearch }) => {
         onChange={onInputChange}
         placeholder="Search an image"
       />
-      <button onClick={onSubmitSearch}>Search</button>
+      <button className="button-blue" onClick={onSubmitSearch}>
+        Search
+      </button>
     </div>
   );
 };

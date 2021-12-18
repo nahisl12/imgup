@@ -67,59 +67,67 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <nav>
+        <nav className="navbar-container">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" className="navbar-links">
+                Home
+              </Link>
             </li>
             {!user ? (
               <>
                 <li>
-                  <Link to="/login">Login</Link>
+                  <Link to="/login" className="navbar-links">
+                    Login
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/register">Register</Link>
+                  <Link to="/register" className="navbar-links">
+                    Register
+                  </Link>
                 </li>
               </>
             ) : (
-              <Link to="/logout">Logout</Link>
+              <Link to="/logout" className="navbar-links">
+                Logout
+              </Link>
             )}
           </ul>
-
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <SearchBar
-                    onInputChange={onInputChange}
-                    onSubmitSearch={onSubmitSearch}
-                  />
-                  {searchResults.length === 0 ? (
-                    <h1>No Results</h1>
-                  ) : (
-                    <Paginate
-                      searchResults={searchResults}
-                      pageTotal={pageTotal}
-                      pageLimit={pageLimit}
-                      currentPage={currentPage}
-                      setCurrentPage={setCurrentPage}
-                    />
-                  )}
-                </>
-              }
-            />
-
-            {!user ? (
-              <>
-                <Route path="/login" element={<Login setUser={setUser} />} />
-                <Route path="/register" element={<Register />} />
-              </>
-            ) : (
-              <Route path="/logout" element={<h1>logging out</h1>} />
-            )}
-          </Routes>
         </nav>
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <SearchBar
+                  onInputChange={onInputChange}
+                  onSubmitSearch={onSubmitSearch}
+                />
+                {searchResults.length === 0 ? (
+                  <h1>No Results</h1>
+                ) : (
+                  <Paginate
+                    searchResults={searchResults}
+                    pageTotal={pageTotal}
+                    pageLimit={pageLimit}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                  />
+                )}
+              </>
+            }
+          />
+
+          {!user ? (
+            <>
+              <Route path="/login" element={<Login setUser={setUser} />} />
+              <Route path="/register" element={<Register />} />
+            </>
+          ) : (
+            <Route path="/logout" element={<h1>logging out</h1>} />
+          )}
+        </Routes>
       </Router>
     </div>
   );
