@@ -1,16 +1,12 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Routes,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import SearchBar from "./components/Navigation/SearchBar";
 import Paginate from "./components/Pagination/Paginate";
 import Login from "./components/Navigation/Login";
+import Logout from "./components/Navigation/Logout";
 import Register from "./components/Navigation/Register";
+import Dashboard from "./components/Navigation/Dashboard";
 
 const apiKey = "17940590-ac975b949658354994c9821cc";
 
@@ -88,9 +84,14 @@ function App() {
                 </li>
               </>
             ) : (
-              <Link to="/logout" className="navbar-links">
-                Logout
-              </Link>
+              <>
+                <Link to="/dashboard" className="navbar-links">
+                  {user.username}
+                </Link>
+                <Link to="/logout" className="navbar-links">
+                  Logout
+                </Link>
+              </>
             )}
           </ul>
         </nav>
@@ -125,7 +126,13 @@ function App() {
               <Route path="/register" element={<Register />} />
             </>
           ) : (
-            <Route path="/logout" element={<h1>logging out</h1>} />
+            <>
+              <Route path="/dashboard" element={<Dashboard user={user} />} />
+              <Route
+                path="/logout"
+                element={<Logout user={user} setUser={setUser} />}
+              />
+            </>
           )}
         </Routes>
       </Router>
