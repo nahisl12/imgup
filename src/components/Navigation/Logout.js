@@ -7,7 +7,7 @@ const Logout = ({ user, setUser }) => {
   useEffect(() => {
     navigate("/");
     // eslint-disable-next-line
-  }, [user]);
+  }, [setUser]);
 
   const logoutUser = () => {
     setUser(null);

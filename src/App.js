@@ -7,6 +7,7 @@ import Login from "./components/Navigation/Login";
 import Logout from "./components/Navigation/Logout";
 import Register from "./components/Navigation/Register";
 import Dashboard from "./components/Navigation/Dashboard";
+import Upload from "./components/Navigation/Upload";
 
 const apiKey = "17940590-ac975b949658354994c9821cc";
 
@@ -88,6 +89,9 @@ function App() {
                 <Link to="/dashboard" className="navbar-links">
                   {user.username}
                 </Link>
+                <Link to="/upload" className="navbar-links">
+                  Upload
+                </Link>
                 <Link to="/logout" className="navbar-links">
                   Logout
                 </Link>
@@ -128,6 +132,7 @@ function App() {
           ) : (
             <>
               <Route path="/dashboard" element={<Dashboard user={user} />} />
+              <Route path="/upload" element={<Upload user={user} />} />
               <Route
                 path="/logout"
                 element={<Logout user={user} setUser={setUser} />}
