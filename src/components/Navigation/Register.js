@@ -15,7 +15,7 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      const register = await fetch("http://localhost:3000/api/users", {
+      const register = await fetch("http://localhost:3001/api/users", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -12,7 +12,7 @@ const Login = ({ setUser }) => {
   const onSubmitLogin = async (event) => {
     event.preventDefault();
     try {
-      const submit = await fetch("http://localhost:3000/api/login", {
+      const submit = await fetch("http://localhost:3001/api/login", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

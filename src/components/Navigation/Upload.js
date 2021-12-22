@@ -34,9 +34,9 @@ const Upload = ({ user }) => {
         maxFiles={1}
         allowRevert={false}
         server={{
-          url: "http://localhost:3000",
+          url: "http://localhost:3001",
           process: {
-            url: "/api/upload",
+            url: "/api/image/upload",
             method: "POST",
             headers: {
               Authorization: `Bearer ${user.accessToken}`,
