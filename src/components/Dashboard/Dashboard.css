@@ -1,3 +1,33 @@
+.dashboard-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 95vw;
+  height: auto;
+}
+
+.add-folder-form {
+  margin: 1rem;
+}
+
+.folder-card {
+  width: 13em;
+  height: 12.5rem;
+  background: #A4ABBD;
+  margin: 1rem;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.album-link {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  color: #000;
+  text-decoration: none;
+}
+
 .card-container {
   display: flex;
   justify-content: center;
@@ -7,4 +37,43 @@
   height: auto;
   border-radius: 10px;
   position: relative;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.image-outer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-large {
+  width: 90%;
+  height: 100%;
+  border: 2px solid black;
+  object-fit: contain;
+}
+
+.delete-btn {
+  margin-top: 1rem;
+  background: red;
+}
+
+/* .delete-btn:focus {
+  background: red;
+} */
+
+.faTrash {
+  font-size: 3rem;
 }

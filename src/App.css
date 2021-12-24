@@ -10,16 +10,16 @@ body {
 }
 
 .navbar-container ul {
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  gap: 2rem;
   list-style: none;
-  padding: 1rem;
 }
 
 .navbar-links {
   color: #fff;
   text-decoration: none;
-  margin-left: 1rem;
 }

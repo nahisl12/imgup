@@ -8,11 +8,14 @@ import Logout from "./components/Navigation/Logout";
 import Register from "./components/Navigation/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Upload from "./components/Navigation/Upload";
+import ImageList from "./components/Dashboard/Albums/ImageList";
+import ImageFull from "./components/Dashboard/Albums/ImageFull";
 
 const apiKey = "17940590-ac975b949658354994c9821cc";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [folders, setFolders] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [pageTotal, setPageTotal] = useState(0); // total number of pages from all the requests
@@ -130,7 +133,25 @@ function App() {
           </>
         ) : (
           <>
-            <Route path="/dashboard" element={<Dashboard user={user} />} />
+            <Route
+              path="dashboard"
+              element={
+                <Dashboard
+                  user={user}
+                  folders={folders}
+                  setFolders={setFolders}
+                />
+              }
+            ></Route>
+
+            <Route
+              path="dashboard/albums/:id/"
+              element={<ImageList user={user} />}
+            />
+            <Route
+              path="dashboard/albums/:id/:image"
+              element={<ImageFull folders={folders} user={user} />}
+            />
             <Route path="/upload" element={<Upload user={user} />} />
             <Route
               path="/logout"
@@ -138,6 +159,7 @@ function App() {
             />
           </>
         )}
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </div>
   );
