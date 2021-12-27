@@ -5,12 +5,12 @@ import Card from "./Card";
 const CardList = ({ results }) => {
   return (
     <div className="card-container">
-      {results.hits.map((image, index) => {
+      {results.map((image, index) => {
         return (
           <Card
-            link={image.webformatURL}
-            user={image.user}
-            likes={image.likes}
+            link={image.url}
+            user={image.author}
+            imageId={image._id}
             key={index}
           />
         );

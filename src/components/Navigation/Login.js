@@ -50,6 +50,7 @@ const Login = ({ setUser }) => {
             name="username"
             id="username"
             placeholder="Enter your Username"
+            required
             onChange={onUsernameChange}
           />
         </div>
@@ -64,6 +65,7 @@ const Login = ({ setUser }) => {
             name="password"
             id="password"
             placeholder="Enter your Password"
+            required
             onChange={onPasswordChange}
           />
         </div>

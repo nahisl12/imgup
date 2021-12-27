@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./Dashboard.css";
 
 const Dashboard = ({ user, folders, setFolders }) => {
@@ -106,19 +108,24 @@ const Dashboard = ({ user, folders, setFolders }) => {
   return (
     <div>
       <h1>Welcome to your dashboard {user.username}</h1>
+
+      {/* FORM FOR ADDING A NEW FOLDER */}
       <div className="add-folder-form">
         <form action="put">
           <label htmlFor="folderName"></label>
           <input
             type="text"
             name="folderName"
-            id="folderName"
+            id="folder-name"
             placeholder="Enter a folder to add"
             onChange={(event) => setNewFolderName(event.target.value)}
           />
-          <button onClick={addNewFolder}>Add Folder</button>
+          <button className="button-blue" onClick={addNewFolder}>
+            Add Folder
+          </button>
         </form>
       </div>
+
       <section className="dashboard-card-container">
         {folders.map((folder, index) => {
           return (
@@ -132,8 +139,13 @@ const Dashboard = ({ user, folders, setFolders }) => {
                 {folder}
               </NavLink>
 
-              <button onClick={deleteFolder} value={folder}>
-                Delete Folder
+              <button
+                className="delete-btn"
+                id="delete-folder-button"
+                onClick={deleteFolder}
+                value={folder}
+              >
+                <FontAwesomeIcon icon={faTrash} className="faTrash" />
               </button>
             </div>
           );

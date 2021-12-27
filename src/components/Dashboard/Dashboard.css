@@ -5,22 +5,6 @@
   height: auto;
 }
 
-.add-folder-form {
-  margin: 1rem;
-}
-
-.folder-card {
-  width: 13em;
-  height: 12.5rem;
-  background: #A4ABBD;
-  margin: 1rem;
-  border-radius: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .album-link {
   text-transform: uppercase;
   font-size: 1.5rem;
@@ -67,13 +51,147 @@
 
 .delete-btn {
   margin-top: 1rem;
+  border-radius: 5px;
+  padding: 0.5rem;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
   background: red;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 5px 1px rgb(0 0 0 / 20%);
+  cursor: pointer;
 }
 
-/* .delete-btn:focus {
-  background: red;
-} */
+.delete-btn:hover {
+  background: #a50909;
+}
 
 .faTrash {
   font-size: 3rem;
+}
+
+.likes {
+  margin-bottom: 1rem
+}
+
+#back-button {
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.status-form {
+  width: 90%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-container {
+  margin: 1rem;
+  padding: 1rem;
+  height: 8.3rem;
+  background-color: grey;
+  text-align: center;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-container h4 {
+  margin-bottom: 0.25rem;
+}
+
+.status-form form {
+  padding-top: 1rem;
+  background: grey;
+  margin: 1rem;
+  padding: 1rem;
+  height: auto;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.form-selection {
+  width: 7rem;
+  height: 1.5rem;
+  border: none;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.confirm-button {
+    border-radius: 5px;
+    margin: 0.15rem;
+    padding: 0.5rem;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background: #00206B;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 5px 1px rgb(0 0 0 / 20%);
+    cursor: pointer;
+}
+
+#folder-name {
+  height: 2rem;
+  width: 15rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 3px;
+}
+
+.add-folder-form {
+  margin: 1rem;
+}
+
+.folder-card {
+  width: 13em;
+  height: 12.5rem;
+  background: #A4ABBD;
+  margin: 1rem;
+  border-radius: 5%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#delete-folder-button .faTrash {
+  font-size: 2.5rem;
+}
+
+.link-button {
+    border-radius: 5px;
+    margin: 0.15rem;
+    padding: 0.5rem;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background: #00206B;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 5px 1px rgb(0 0 0 / 20%);
+    cursor: pointer;
+}
+
+.goto-image-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 25em) {
+  .status-form {
+    flex-direction: column;
+    width: 80%;
+  }
 }

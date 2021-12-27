@@ -1,44 +1,34 @@
 import "./App.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import SearchBar from "./components/Navigation/SearchBar";
 import Paginate from "./components/Pagination/Paginate";
 import Login from "./components/Navigation/Login";
-import Logout from "./components/Navigation/Logout";
 import Register from "./components/Navigation/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Upload from "./components/Navigation/Upload";
 import ImageList from "./components/Dashboard/Albums/ImageList";
 import ImageFull from "./components/Dashboard/Albums/ImageFull";
 
-const apiKey = "17940590-ac975b949658354994c9821cc";
+// stuff to do
+// fix search bar so that it filters images shown by username/author and as they type using .includes
+// aditional styling to make site look nicer
 
 function App() {
   const [user, setUser] = useState(null);
   const [folders, setFolders] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [pageTotal, setPageTotal] = useState(0); // total number of pages from all the requests
+  const [pageTotal, setPageTotal] = useState(1); // total number of pages from all the requests
   const [currentPage, setCurrentPage] = useState(1); // will be attached to the fetch request to get the page
   const [pageLimit] = useState(10);
 
-  const isInitialMount = useRef(true); // used to prevent use effect firing before currentPage is updated
-  const pageInitialMount = useRef(true); // used to prevent setPageTotal from firing before its actually set
-
   useEffect(() => {
-    if (pageInitialMount.current) {
-      pageInitialMount.current = false;
-    } else {
-      setPageTotal(Math.round(searchResults.totalHits / 20)); // calculates the total amount of pages if 20 results each
-    }
+    setPageTotal(Math.round(searchResults.length / 20)); // calculates the total amount of pages if 20 results each
   }, [searchResults]);
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      onSubmitSearch();
-    }
+    onSubmitSearch();
     // eslint-disable-next-line
   }, [currentPage]);
 
@@ -50,15 +40,11 @@ function App() {
   // when submit is pressed the API is queried with the search query to get images
   const onSubmitSearch = async () => {
     try {
-      let apiRequest = await fetch(
-        `https://pixabay.com/api/?key=${apiKey}&page=${currentPage}&per_page=20&q=${searchQuery}`
-      );
+      let apiRequest = await fetch(`http://localhost:3001/api/image/`);
 
       let data = await apiRequest.json();
 
       setSearchResults(data);
-
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -89,12 +75,16 @@ function App() {
           ) : (
             <>
               <Link to="/dashboard" className="navbar-links">
-                {user.username}
+                {`${user.username}'s Dashboard`}
               </Link>
               <Link to="/upload" className="navbar-links">
                 Upload
               </Link>
-              <Link to="/logout" className="navbar-links">
+              <Link
+                to="/"
+                className="navbar-links"
+                onClick={() => setUser(null)}
+              >
                 Logout
               </Link>
             </>
@@ -114,17 +104,19 @@ function App() {
               {searchResults.length === 0 ? (
                 <h1>No Results</h1>
               ) : (
-                <Paginate
-                  searchResults={searchResults}
-                  pageTotal={pageTotal}
-                  pageLimit={pageLimit}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                />
+                <>
+                  <Paginate
+                    searchResults={searchResults}
+                    pageTotal={pageTotal}
+                    pageLimit={pageLimit}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                  />
+                </>
               )}
             </>
           }
-        />
+        ></Route>
 
         {!user ? (
           <>
@@ -153,10 +145,7 @@ function App() {
               element={<ImageFull folders={folders} user={user} />}
             />
             <Route path="/upload" element={<Upload user={user} />} />
-            <Route
-              path="/logout"
-              element={<Logout user={user} setUser={setUser} />}
-            />
+            <Route path="/" />
           </>
         )}
         <Route path="*" element={<h1>404</h1>} />

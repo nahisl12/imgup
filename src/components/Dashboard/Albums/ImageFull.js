@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "../Dashboard.css";
 
 const ImageFull = ({ folders, user }) => {
@@ -77,54 +77,87 @@ const ImageFull = ({ folders, user }) => {
   };
 
   return (
-    <div className="image-container">
-      <div className="image-outer">
-        <img className="image-large" src={link} alt="searchResult"></img>
-        <div className="card-info">
-          <h2 className="uploader">By {author}</h2>
+    <>
+      <button
+        className="button-blue"
+        id="back-button"
+        onClick={() => navigate(-1)}
+      >
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          className="faArrowLeft"
+          onClick={deleteImage}
+        />
+      </button>
+      <div className="image-container">
+        <div className="image-outer">
+          <img className="image-large" src={link} alt="searchResult"></img>
+          <div className="card-info">
+            <h2 className="uploader">By {author}</h2>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <p>Current Status: {status}</p>
-        <p>Current Folder: {folder}</p>
-      </div>
+        <section className="status-form">
+          <div className="status-container">
+            <h4>Status: {status}</h4>
+            <h4>Folder: {folder}</h4>
+          </div>
 
-      <section>
-        <form>
-          <label htmlFor="status"></label>
-          <select id="status" name="status" onChange={setStatus}>
-            <option value="private">Private</option>
-            <option value="public">Public</option>
-          </select>
+          <form>
+            <div>
+              <label htmlFor="status"></label>
+              <select
+                className="form-selection"
+                id="status"
+                name="status"
+                onChange={setStatus}
+              >
+                <option value="private">Private</option>
+                <option value="public">Public</option>
+              </select>
+            </div>
 
-          <label htmlFor="folder"></label>
-          <select id="folder" name="folder" onChange={setFolder}>
-            {folders.map((folder, index) => {
-              return (
-                <option value={folder} key={index}>
-                  {folder}
-                </option>
-              );
-            })}
-          </select>
+            <div>
+              <label htmlFor="folder"></label>
+              <select
+                className="form-selection"
+                id="folder"
+                name="folder"
+                onChange={setFolder}
+              >
+                {folders.map((folder, index) => {
+                  return (
+                    <option value={folder} key={index}>
+                      {folder}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-          <button className="confirm-btn" type="button" onClick={changeOptions}>
-            Confirm
+            <div>
+              <button
+                className="confirm-button"
+                type="button"
+                onClick={changeOptions}
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section>
+          <button className="delete-btn">
+            <FontAwesomeIcon
+              icon={faTrash}
+              className="faTrash"
+              onClick={deleteImage}
+            />
           </button>
-        </form>
-      </section>
-
-      <section>
-        <button className="delete-btn">
-          <FontAwesomeIcon
-            icon={faTrash}
-            className="faTrash"
-            onClick={deleteImage}
-          />
-        </button>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 
