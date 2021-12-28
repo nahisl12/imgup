@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { logIn } from "../../Helpers/Requests";
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, setMessage }) => {
   const [loginUsername, setLoginUsername] = useState();
   const [loginPassword, setLoginPassword] = useState();
   const navigate = useNavigate();
@@ -12,26 +13,17 @@ const Login = ({ setUser }) => {
   const onSubmitLogin = async (event) => {
     event.preventDefault();
     try {
-      const submit = await fetch("http://localhost:3001/api/login", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: loginUsername,
-          password: loginPassword,
-        }),
-      });
+      const data = await logIn(loginUsername, loginPassword);
 
-      const response = await submit.json();
-
-      if (response.accessToken) {
-        console.log(response);
-        setUser(response);
+      if (data.accessToken) {
+        console.log(data);
+        setUser(data);
         navigate("/");
       } else {
-        console.log("error logging in");
+        setMessage("an error occured while logging in");
       }
     } catch (error) {
-      console.log(error);
+      setMessage("Invalid Username/Password entered");
     }
   };
 

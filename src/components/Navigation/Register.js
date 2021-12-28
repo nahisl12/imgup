@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../../Helpers/Requests";
 
-const Register = () => {
+const Register = ({ setMessage }) => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -14,25 +15,21 @@ const Register = () => {
   const onSubmitRegister = async (event) => {
     event.preventDefault();
 
-    try {
-      const register = await fetch("http://localhost:3001/api/users", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
-        }),
-      });
+    if (username.length >= 3 && password.length > 7) {
+      try {
+        const data = await register(username, email, password, navigate);
 
-      const response = await register.json();
-
-      if (response._id) {
-        console.log("User sucessfully created");
-        navigate("/login");
+        if (data._id) {
+          console.log("User sucessfully created");
+          navigate("/login");
+        }
+      } catch (error) {
+        setMessage("An error occured while registering");
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      setMessage(
+        "Usernames must be at least 3 characters long and Passwords must be at least 7 characters"
+      );
     }
   };
 

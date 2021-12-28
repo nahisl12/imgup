@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { changeImageStatus, deleteUserImage } from "../../../Helpers/Requests";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "../Dashboard.css";
@@ -21,23 +22,9 @@ const ImageFull = ({ folders, user }) => {
 
   const changeOptions = async (event) => {
     event.preventDefault();
-    const editImageSettings = await fetch(
-      "http://localhost:3001/api/image/edit",
-      {
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `bearer ${user.accessToken}`,
-        },
-        body: JSON.stringify({
-          imageId: id,
-          folder: newFolder,
-          status: newStatus,
-        }),
-      }
-    );
 
-    const data = await editImageSettings.json();
+    const data = await changeImageStatus(user, id, newFolder, newStatus);
+
     if (data) {
       console.log(newStatus, newFolder, id, data);
       navigate(-1);
@@ -50,21 +37,8 @@ const ImageFull = ({ folders, user }) => {
     event.preventDefault();
     // Delete image request here
     try {
-      const editImageSettings = await fetch(
-        "http://localhost:3001/api/image/delete",
-        {
-          method: "delete",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `bearer ${user.accessToken}`,
-          },
-          body: JSON.stringify({
-            imageId: id,
-          }),
-        }
-      );
+      const data = await deleteUserImage(user, id);
 
-      const data = await editImageSettings.json();
       if (data) {
         console.log(newStatus, newFolder, id, data);
         navigate(-1);

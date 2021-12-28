@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
+import { getPublicImages } from "./Helpers/Requests";
+import Notification from "./components/Notification/Notification";
 import SearchBar from "./components/Navigation/SearchBar";
 import Paginate from "./components/Pagination/Paginate";
 import Login from "./components/Navigation/Login";
@@ -22,6 +24,7 @@ function App() {
   const [pageTotal, setPageTotal] = useState(1); // total number of pages from all the requests
   const [currentPage, setCurrentPage] = useState(1); // will be attached to the fetch request to get the page
   const [pageLimit] = useState(10);
+  const [message, setMessage] = useState(""); // for error notification
 
   useEffect(() => {
     setPageTotal(Math.round(searchResults.length / 20)); // calculates the total amount of pages if 20 results each
@@ -40,13 +43,11 @@ function App() {
   // when submit is pressed the API is queried with the search query to get images
   const onSubmitSearch = async () => {
     try {
-      let apiRequest = await fetch(`http://localhost:3001/api/image/`);
-
-      let data = await apiRequest.json();
+      let data = await getPublicImages();
 
       setSearchResults(data);
     } catch (error) {
-      console.log(error);
+      setMessage("An error occured");
     }
   };
 
@@ -92,6 +93,7 @@ function App() {
         </ul>
       </nav>
 
+      {message && <Notification message={message} setMessage={setMessage} />}
       <Routes>
         <Route
           path="/"
@@ -120,8 +122,14 @@ function App() {
 
         {!user ? (
           <>
-            <Route path="/login" element={<Login setUser={setUser} />} />
-            <Route path="/register" element={<Register />} />
+            <Route
+              path="/login"
+              element={<Login setUser={setUser} setMessage={setMessage} />}
+            />
+            <Route
+              path="/register"
+              element={<Register setMessage={setMessage} />}
+            />
           </>
         ) : (
           <>
@@ -132,13 +140,14 @@ function App() {
                   user={user}
                   folders={folders}
                   setFolders={setFolders}
+                  setMessage={setMessage}
                 />
               }
             ></Route>
 
             <Route
               path="dashboard/albums/:id/"
-              element={<ImageList user={user} />}
+              element={<ImageList user={user} setMessage={setMessage} />}
             />
             <Route
               path="dashboard/albums/:id/:image"

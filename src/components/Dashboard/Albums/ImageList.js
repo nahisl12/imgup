@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getUserImages } from "../../../Helpers/Requests";
 import "../Dashboard.css";
 import ImageCard from "./ImageCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-const ImageList = ({ user }) => {
+const ImageList = ({ user, setMessage }) => {
   const [images, setImages] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,26 +18,16 @@ const ImageList = ({ user }) => {
 
   const getImages = async () => {
     try {
-      const reqImages = await fetch(
-        "http://localhost:3001/api/image/userImages",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `bearer ${user.accessToken}`,
-          },
-        }
-      );
-
-      const data = await reqImages.json();
+      const data = await getUserImages(user);
 
       if (data) {
         console.log(data);
         setImages(data);
       } else {
-        console.log("there was an error");
+        setMessage("An error occured");
       }
     } catch (error) {
-      console.log(error);
+      setMessage("An error occured");
     }
   };
 

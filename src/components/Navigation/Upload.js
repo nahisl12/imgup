@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FilePond, File, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 
@@ -18,7 +17,6 @@ registerPlugin(
 
 const Upload = ({ user }) => {
   const [files, setFiles] = useState([]);
-  const navigate = useNavigate();
 
   const uploadComplete = () => {
     setFiles([]);

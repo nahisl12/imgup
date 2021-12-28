@@ -1,107 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./Dashboard.css";
+import {
+  addFolder,
+  deleteFolder,
+  getUserFolders,
+} from "../../Helpers/Requests";
 
-const Dashboard = ({ user, folders, setFolders }) => {
+const Dashboard = ({ user, folders, setFolders, setMessage }) => {
   const [newFolderName, setNewFolderName] = useState();
-  const navigate = useNavigate();
+
   useEffect(() => {
     getFolders();
+
+    // eslint-disable-next-line
   }, [setFolders]);
 
   const addNewFolder = async (event) => {
     event.preventDefault();
     try {
       if (folders.includes(newFolderName)) {
-        return console.log("this folder already exists");
+        return setMessage("A folder with this name already exists");
       } else {
-        const addFolder = await fetch(
-          "http://localhost:3001/api/users/folders/new",
-          {
-            method: "put",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `bearer ${user.accessToken}`,
-            },
-            body: JSON.stringify({
-              folder: newFolderName,
-            }),
-          }
-        );
-
-        const data = await addFolder.json();
+        const data = await addFolder(user, newFolderName);
 
         if (data) {
-          console.log("new folder successfully created", data);
           getFolders();
         }
       }
     } catch (error) {
-      console.log(error);
+      setMessage("Error adding new folder");
     }
-
-    console.log(newFolderName);
   };
 
   // Delete folder
-  const deleteFolder = async (event) => {
-    const folder = event.target.value;
+  const deleteCurrentFolder = async (event) => {
+    const folder = event.currentTarget.value;
     try {
-      if (event.target.value.toLowerCase() !== "default") {
-        const deleteFolder = await fetch(
-          "http://localhost:3001/api/users/folders/delete",
-          {
-            method: "delete",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `bearer ${user.accessToken}`,
-            },
-            body: JSON.stringify({
-              folderName: folder,
-            }),
-          }
-        );
-
-        const data = await deleteFolder.json();
-        console.log(folder);
+      if (event.currentTarget.value.toLowerCase() !== "default") {
+        const data = await deleteFolder(user, folder);
 
         if (data) {
-          console.log("successfully deleted the folder");
           getFolders();
         }
-        console.log(event.target.value);
       } else {
-        console.log("the default folder cannot be deleted");
+        setMessage("The Default folder cannot be deleted");
       }
     } catch (error) {
-      console.log(error);
+      setMessage("An error occured while deleting the folder. Try Again");
     }
   };
 
   const getFolders = async () => {
     try {
-      const reqFolders = await fetch(
-        "http://localhost:3001/api/users/folders",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `bearer ${user.accessToken}`,
-          },
-        }
-      );
+      const data = await getUserFolders(user);
 
-      const resFolders = await reqFolders.json();
-
-      if (resFolders) {
-        setFolders(resFolders);
-        console.log(resFolders);
+      if (data) {
+        setFolders(data);
       } else {
-        console.log("there was an error");
+        setMessage("Oops! Something went wrong");
       }
     } catch (error) {
-      console.log(error);
+      setMessage("Oops! Something went wrong");
     }
   };
 
@@ -142,8 +104,8 @@ const Dashboard = ({ user, folders, setFolders }) => {
               <button
                 className="delete-btn"
                 id="delete-folder-button"
-                onClick={deleteFolder}
                 value={folder}
+                onClick={deleteCurrentFolder}
               >
                 <FontAwesomeIcon icon={faTrash} className="faTrash" />
               </button>
