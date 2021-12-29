@@ -1,0 +1,68 @@
+.image-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  background-color: rgba(0,0,0, 0.85);
+}
+
+.modal-img {
+  width: 80%;
+  height: 80%;
+  padding-bottom: 0.5rem;
+  object-fit: contain;
+}
+
+.delete-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  background-color: rgba(0,0,0, 0.85);
+}
+
+.prompt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  background-color: rgba(0,0,0, 0.5);
+  padding: 3rem;
+  border-radius: 10px;
+}
+
+.prompt-container h2 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#delete-button-no {
+  margin-left: 0.5rem;
+  width: 5rem;
+  height: 2.5rem;
+}
+
+#delete-button-yes{
+  width: 5rem;
+  height: 2.5rem;
+}

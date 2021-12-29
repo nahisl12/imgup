@@ -3,14 +3,13 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./Dashboard.css";
-import {
-  addFolder,
-  deleteFolder,
-  getUserFolders,
-} from "../../Helpers/Requests";
+import Modal from "../Modal/Modal";
+import { addFolder, deleteFolder, getUserFolders } from "../../Helpers/Requests";
 
-const Dashboard = ({ user, folders, setFolders, setMessage }) => {
+const Dashboard = ({ user, folders, setFolders, setMessage, getImages }) => {
   const [newFolderName, setNewFolderName] = useState();
+  const [folderName, setFolderName] = useState();
+  const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
     getFolders();
@@ -21,8 +20,8 @@ const Dashboard = ({ user, folders, setFolders, setMessage }) => {
   const addNewFolder = async (event) => {
     event.preventDefault();
     try {
-      if (folders.includes(newFolderName)) {
-        return setMessage("A folder with this name already exists");
+      if (folders.includes(newFolderName) || newFolderName.length > 12) {
+        return setMessage("A folder with this name already exists/Name too long");
       } else {
         const data = await addFolder(user, newFolderName);
 
@@ -35,15 +34,22 @@ const Dashboard = ({ user, folders, setFolders, setMessage }) => {
     }
   };
 
+  // when the delete button is clicked the name of the folder is store and modal activated
+  const setFolderToDelete = (event) => {
+    setFolderName(event.currentTarget.value);
+    setModalActive(true);
+  };
+
   // Delete folder
   const deleteCurrentFolder = async (event) => {
-    const folder = event.currentTarget.value;
     try {
       if (event.currentTarget.value.toLowerCase() !== "default") {
-        const data = await deleteFolder(user, folder);
+        const data = await deleteFolder(user, folderName);
 
         if (data) {
           getFolders();
+          setModalActive(false);
+          getImages();
         }
       } else {
         setMessage("The Default folder cannot be deleted");
@@ -59,8 +65,6 @@ const Dashboard = ({ user, folders, setFolders, setMessage }) => {
 
       if (data) {
         setFolders(data);
-      } else {
-        setMessage("Oops! Something went wrong");
       }
     } catch (error) {
       setMessage("Oops! Something went wrong");
@@ -69,7 +73,9 @@ const Dashboard = ({ user, folders, setFolders, setMessage }) => {
 
   return (
     <div>
-      <h1>Welcome to your dashboard {user.username}</h1>
+      <div className="dashboard-text">
+        <h1>Welcome to your dashboard {user.username}</h1>
+      </div>
 
       {/* FORM FOR ADDING A NEW FOLDER */}
       <div className="add-folder-form">
@@ -92,20 +98,24 @@ const Dashboard = ({ user, folders, setFolders, setMessage }) => {
         {folders.map((folder, index) => {
           return (
             <div key={index} className="folder-card">
-              <NavLink
-                className="album-link"
-                key={index}
-                to={`albums/${folder}`}
-                state={{ folderName: folder }}
-              >
-                {folder}
-              </NavLink>
+              <h2>{folder}</h2>
+
+              <button className="confirm-button">
+                <NavLink
+                  className="album-link"
+                  key={index}
+                  to={`albums/${folder}`}
+                  state={{ folderName: folder }}
+                >
+                  Go To Folder
+                </NavLink>
+              </button>
 
               <button
                 className="delete-btn"
                 id="delete-folder-button"
                 value={folder}
-                onClick={deleteCurrentFolder}
+                onClick={setFolderToDelete}
               >
                 <FontAwesomeIcon icon={faTrash} className="faTrash" />
               </button>
@@ -113,6 +123,15 @@ const Dashboard = ({ user, folders, setFolders, setMessage }) => {
           );
         })}
       </section>
+
+      {modalActive && (
+        <Modal
+          type="prompt"
+          confirmAction={deleteCurrentFolder}
+          setModalActive={setModalActive}
+          message="Delete Folder?"
+        />
+      )}
     </div>
   );
 };

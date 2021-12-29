@@ -77,30 +77,6 @@
   background: #003485;
 }
 
- .image-modal {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   position: fixed;
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   z-index: 3;
-   width: 100%;
-   height: 100%;
-   border: 1px solid black;
-   background-color: rgba(0,0,0, 0.85);
- }
-
- .modal-img {
-   width: 80%;
-   height: 80%;
-   padding-bottom: 0.5rem;
-   object-fit: contain;
- }
-
 @media (max-width: 25em) {
   .card-container {
     width: 80vw;

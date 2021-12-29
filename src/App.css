@@ -1,28 +1,3 @@
 body {
   background-color: #404756;
 }
-
-.navbar-container {
-  width: 100%;
-  height: auto;
-  padding: 1.15rem;
-  /* height: 3rem; */
-  background: #003485;
-  box-shadow: 3px 3px 5px 1px rgb(0 0 0 / 15%);
-}
-
-.navbar-container ul {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  list-style: none;
-}
-
-.navbar-links {
-  color: #fff;
-  text-decoration: none;
-}

@@ -1,29 +1,17 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { Route, Routes, Link } from "react-router-dom";
 import { getPublicImages } from "./Helpers/Requests";
-import Notification from "./components/Notification/Notification";
-import SearchBar from "./components/Navigation/SearchBar";
-import Paginate from "./components/Pagination/Paginate";
-import Login from "./components/Navigation/Login";
-import Register from "./components/Navigation/Register";
-import Dashboard from "./components/Dashboard/Dashboard";
-import Upload from "./components/Navigation/Upload";
-import ImageList from "./components/Dashboard/Albums/ImageList";
-import ImageFull from "./components/Dashboard/Albums/ImageFull";
 
-// stuff to do
-// fix search bar so that it filters images shown by username/author and as they type using .includes
-// aditional styling to make site look nicer
+import NavBar from "./components/Navigation/NavBar";
+import Notification from "./components/Notification/Notification";
+import UrlRoutes from "./components/Navigation/UrlRoutes";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [folders, setFolders] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [pageTotal, setPageTotal] = useState(1); // total number of pages from all the requests
   const [currentPage, setCurrentPage] = useState(1); // will be attached to the fetch request to get the page
-  const [pageLimit] = useState(10);
   const [message, setMessage] = useState(""); // for error notification
 
   useEffect(() => {
@@ -51,114 +39,29 @@ function App() {
     }
   };
 
+  // send filtered images based on author user typed into search bar down
+  const filteredImages = searchResults.filter((image) => {
+    return image.author.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="App">
-      <nav className="navbar-container">
-        <ul>
-          <li>
-            <Link to="/" className="navbar-links">
-              Home
-            </Link>
-          </li>
-          {!user ? (
-            <>
-              <li>
-                <Link to="/login" className="navbar-links">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/register" className="navbar-links">
-                  Register
-                </Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <Link to="/dashboard" className="navbar-links">
-                {`${user.username}'s Dashboard`}
-              </Link>
-              <Link to="/upload" className="navbar-links">
-                Upload
-              </Link>
-              <Link
-                to="/"
-                className="navbar-links"
-                onClick={() => setUser(null)}
-              >
-                Logout
-              </Link>
-            </>
-          )}
-        </ul>
-      </nav>
+      <NavBar user={user} setUser={setUser} />
 
       {message && <Notification message={message} setMessage={setMessage} />}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <SearchBar
-                onInputChange={onInputChange}
-                onSubmitSearch={onSubmitSearch}
-              />
-              {searchResults.length === 0 ? (
-                <h1>No Results</h1>
-              ) : (
-                <>
-                  <Paginate
-                    searchResults={searchResults}
-                    pageTotal={pageTotal}
-                    pageLimit={pageLimit}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                  />
-                </>
-              )}
-            </>
-          }
-        ></Route>
 
-        {!user ? (
-          <>
-            <Route
-              path="/login"
-              element={<Login setUser={setUser} setMessage={setMessage} />}
-            />
-            <Route
-              path="/register"
-              element={<Register setMessage={setMessage} />}
-            />
-          </>
-        ) : (
-          <>
-            <Route
-              path="dashboard"
-              element={
-                <Dashboard
-                  user={user}
-                  folders={folders}
-                  setFolders={setFolders}
-                  setMessage={setMessage}
-                />
-              }
-            ></Route>
-
-            <Route
-              path="dashboard/albums/:id/"
-              element={<ImageList user={user} setMessage={setMessage} />}
-            />
-            <Route
-              path="dashboard/albums/:id/:image"
-              element={<ImageFull folders={folders} user={user} />}
-            />
-            <Route path="/upload" element={<Upload user={user} />} />
-            <Route path="/" />
-          </>
-        )}
-        <Route path="*" element={<h1>404</h1>} />
-      </Routes>
+      <UrlRoutes
+        user={user}
+        setUser={setUser}
+        onInputChange={onInputChange}
+        searchResults={searchResults}
+        filteredImages={filteredImages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        setMessage={setMessage}
+        onSubmitSearch={onSubmitSearch}
+        pageTotal={pageTotal}
+      />
     </div>
   );
 }

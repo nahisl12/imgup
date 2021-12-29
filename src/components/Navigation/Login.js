@@ -16,7 +16,6 @@ const Login = ({ setUser, setMessage }) => {
       const data = await logIn(loginUsername, loginPassword);
 
       if (data.accessToken) {
-        console.log(data);
         setUser(data);
         navigate("/");
       } else {
@@ -43,6 +42,7 @@ const Login = ({ setUser, setMessage }) => {
             id="username"
             placeholder="Enter your Username"
             required
+            autoComplete="username"
             onChange={onUsernameChange}
           />
         </div>
@@ -58,16 +58,12 @@ const Login = ({ setUser, setMessage }) => {
             id="password"
             placeholder="Enter your Password"
             required
+            autoComplete="current-password"
             onChange={onPasswordChange}
           />
         </div>
 
-        <button
-          className="button-blue"
-          id="button-login"
-          type="submit"
-          onClick={onSubmitLogin}
-        >
+        <button className="button-blue" id="button-login" type="submit" onClick={onSubmitLogin}>
           Login
         </button>
       </form>

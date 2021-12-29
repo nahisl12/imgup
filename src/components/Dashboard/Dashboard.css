@@ -7,8 +7,7 @@
 
 .album-link {
   text-transform: uppercase;
-  font-size: 1.5rem;
-  color: #000;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -155,7 +154,7 @@
 .folder-card {
   width: 13em;
   height: 12.5rem;
-  background: #A4ABBD;
+  background-color: rgba(0,0,0, 0.3);
   margin: 1rem;
   border-radius: 5%;
   display: flex;
@@ -189,9 +188,18 @@
   text-decoration: none;
 }
 
+.dashboard-text {
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
 @media (max-width: 25em) {
   .status-form {
     flex-direction: column;
     width: 80%;
+  }
+
+  .prompt-container h2 {
+    font-size: 1rem;
   }
 }

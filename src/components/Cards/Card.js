@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./CardStyle.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../Modal/Modal";
 
-const Card = ({ link, user, likes, imageId }) => {
+const Card = ({ link, user }) => {
   const [modalActive, setModalActive] = useState(false);
 
   return (
@@ -18,17 +16,7 @@ const Card = ({ link, user, likes, imageId }) => {
           </button>
         </div>
       </div>
-      {modalActive && (
-        <div className="image-modal">
-          <img src={link} className="modal-img" alt=""></img>
-          <button
-            className="close-button"
-            onClick={() => setModalActive(false)}
-          >
-            Close
-          </button>
-        </div>
-      )}
+      {modalActive && <Modal type="image" link={link} setModalActive={setModalActive} />}
     </>
   );
 };

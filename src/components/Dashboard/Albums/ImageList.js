@@ -14,6 +14,8 @@ const ImageList = ({ user, setMessage }) => {
 
   useEffect(() => {
     getImages();
+
+    // eslint-disable-next-line
   }, []);
 
   const getImages = async () => {
@@ -21,7 +23,6 @@ const ImageList = ({ user, setMessage }) => {
       const data = await getUserImages(user);
 
       if (data) {
-        console.log(data);
         setImages(data);
       } else {
         setMessage("An error occured");
@@ -33,19 +34,15 @@ const ImageList = ({ user, setMessage }) => {
 
   return (
     <div>
-      <h1>{folderName.toUpperCase()} Gallery</h1>
-      <button
-        className="button-blue"
-        id="back-button"
-        onClick={() => navigate(-1)}
-      >
+      <div className="dashboard-text">
+        <h1>{folderName.toUpperCase()} Gallery</h1>
+      </div>
+      <button className="button-blue" id="back-button" onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </button>
       <div className="card-container">
         {images
-          .filter(
-            (image) => image.folder.toLowerCase() === folderName.toLowerCase()
-          )
+          .filter((image) => image.folder.toLowerCase() === folderName.toLowerCase())
           .map((image, index) => {
             return (
               <ImageCard

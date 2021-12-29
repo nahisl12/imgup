@@ -20,16 +20,13 @@ const Register = ({ setMessage }) => {
         const data = await register(username, email, password, navigate);
 
         if (data._id) {
-          console.log("User sucessfully created");
           navigate("/login");
         }
       } catch (error) {
         setMessage("An error occured while registering");
       }
     } else {
-      setMessage(
-        "Usernames must be at least 3 characters long and Passwords must be at least 7 characters"
-      );
+      setMessage("Usernames must be at least 3 characters long and Passwords must be at least 7 characters");
     }
   };
 
@@ -47,6 +44,7 @@ const Register = ({ setMessage }) => {
             type="text"
             id="username"
             placeholder="Enter your Username"
+            autoComplete="username"
             required
             onChange={onUsernameChange}
           />
@@ -77,17 +75,13 @@ const Register = ({ setMessage }) => {
             name="password"
             id="password"
             placeholder="Set a Password"
+            autoComplete="new-password"
             required
             onChange={onPasswordChange}
           />
         </div>
 
-        <button
-          type="submit"
-          className="button-blue"
-          id="button-login"
-          onClick={onSubmitRegister}
-        >
+        <button type="submit" className="button-blue" id="button-login" onClick={onSubmitRegister}>
           Register
         </button>
       </form>
