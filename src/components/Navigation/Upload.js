@@ -32,7 +32,7 @@ const Upload = ({ user }) => {
         maxFiles={1}
         allowRevert={false}
         server={{
-          url: "http://localhost:3001",
+          url: "https://imgup-server.herokuapp.com",
           process: {
             url: "/api/image/upload",
             method: "POST",

@@ -37,13 +37,7 @@ const UrlRoutes = ({
                 <h1>No Results</h1>
               ) : (
                 <>
-                  <Paginate
-                    searchResults={filteredImages}
-                    pageTotal={pageTotal}
-                    pageLimit={pageLimit}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                  />
+                  <Paginate searchResults={filteredImages} itemsPerPage={10} />
                 </>
               )}
             </>
@@ -70,7 +64,10 @@ const UrlRoutes = ({
               }
             ></Route>
 
-            <Route path="dashboard/albums/:id/" element={<ImageList user={user} setMessage={setMessage} />} />
+            <Route
+              path="dashboard/albums/:id/"
+              element={<ImageList user={user} setMessage={setMessage} itemsPerPage={25} />}
+            />
             <Route
               path="dashboard/albums/:id/:image"
               element={

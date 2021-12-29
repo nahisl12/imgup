@@ -18,7 +18,7 @@ export const getPublicImages = async () => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/image/", "get", requestData);
+  const data = await apiRequest("https://imgup-server.herokuapp.com/api/image/", "get", requestData);
   return data;
 };
 
@@ -34,7 +34,7 @@ export const logIn = async (loginUsername, loginPassword) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/login", "post", requestData);
+  const data = await apiRequest("https://imgup-server.herokuapp.com/api/login", "post", requestData);
   return data;
 };
 
@@ -51,7 +51,7 @@ export const register = async (username, email, password, navigate) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/users", "post", requestData);
+  const data = await apiRequest("https://imgup-server.herokuapp.com/api/users", "post", requestData);
   return data;
 };
 
@@ -64,7 +64,7 @@ export const getUserFolders = async (user) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/users/folders", "get", requestData);
+  const data = await apiRequest("https://imgup-server.herokuapp.com/api/users/folders", "get", requestData);
   return data;
 };
 
@@ -80,7 +80,11 @@ export const addFolder = async (user, newFolderName) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/users/folders/new", "put", requestData);
+  const data = await apiRequest(
+    "https://imgup-server.herokuapp.com/api/users/folders/new",
+    "put",
+    requestData
+  );
   return data;
 };
 
@@ -96,7 +100,11 @@ export const deleteFolder = async (user, folder) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/users/folders/delete", "delete", requestData);
+  const data = await apiRequest(
+    "https://imgup-server.herokuapp.com/api/users/folders/delete",
+    "delete",
+    requestData
+  );
   return data;
 };
 
@@ -109,7 +117,11 @@ export const getUserImages = async (user) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/image/userImages", "get", requestData);
+  const data = await apiRequest(
+    "https://imgup-server.herokuapp.com/api/image/userImages",
+    "get",
+    requestData
+  );
   return data;
 };
 
@@ -127,7 +139,7 @@ export const changeImageStatus = async (user, id, newFolder, newStatus) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/image/edit", "put", requestData);
+  const data = await apiRequest("https://imgup-server.herokuapp.com/api/image/edit", "put", requestData);
   return data;
 };
 
@@ -143,6 +155,6 @@ export const deleteUserImage = async (user, id) => {
     },
   };
 
-  const data = await apiRequest("http://localhost:3001/api/image/delete", "delete", requestData);
+  const data = await apiRequest("https://imgup-server.herokuapp.com/api/image/delete", "delete", requestData);
   return data;
 };

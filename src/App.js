@@ -6,6 +6,9 @@ import NavBar from "./components/Navigation/NavBar";
 import Notification from "./components/Notification/Notification";
 import UrlRoutes from "./components/Navigation/UrlRoutes";
 
+// TODOS
+// fix pagination so that 10 images show per page max
+
 function App() {
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,7 +18,7 @@ function App() {
   const [message, setMessage] = useState(""); // for error notification
 
   useEffect(() => {
-    setPageTotal(Math.round(searchResults.length / 20)); // calculates the total amount of pages if 20 results each
+    setPageTotal(Math.round(searchResults.length / 10)); // calculates the total amount of pages if 20 results each
   }, [searchResults]);
 
   useEffect(() => {
@@ -31,9 +34,10 @@ function App() {
   // when submit is pressed the API is queried with the search query to get images
   const onSubmitSearch = async () => {
     try {
-      let data = await getPublicImages();
+      const data = await getPublicImages();
 
-      setSearchResults(data);
+      const dataReversed = data.reverse();
+      setSearchResults(dataReversed);
     } catch (error) {
       setMessage("An error occured");
     }

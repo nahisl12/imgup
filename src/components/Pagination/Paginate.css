@@ -3,9 +3,22 @@
   min-height: 5rem;
   margin: 1.5rem auto;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.page-button {
+.paginate {
+  display: flex;
+  gap: 1rem;
+}
+
+.paginate li {
+  text-decoration: none;
+  list-style: none;
+}
+
+.paginate li a {
   min-width: 40px;
   min-height: 30px;
   margin: 0.15rem;
@@ -19,10 +32,10 @@
   cursor: pointer;
 }
 
-.page-button:hover, .page-button:focus {
+.paginate li a:hover {
   background: #003485;
 }
 
-.page-button:focus {
+.paginate li a:focus {
   outline: 1px solid #fff;
 }
