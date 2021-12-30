@@ -1,4 +1,4 @@
-# Live application can be previewed at [imgup](https://imgup-imageuploader.netlify.app/)
+### Live application can be previewed at [imgup](https://imgup-imageuploader.netlify.app/)
 
 # imgup application
 
