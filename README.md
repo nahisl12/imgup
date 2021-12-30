@@ -1,3 +1,5 @@
+### Live application can be previewed at [imgup](https://imgup-imageuploader.netlify.app/)
+
 # imgup application
 
 ## This project is a full-stack website/application for image uploading made using ReactJS for the front-end, NodeJs/Express and MongDB for the back-end with JWT for authentification.
