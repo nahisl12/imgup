@@ -24,41 +24,47 @@ const Upload = ({ user }) => {
   };
 
   return (
-    <div>
-      <FilePond
-        files={files}
-        onupdatefiles={setFiles}
-        allowMultiple={false}
-        maxFiles={1}
-        allowRevert={false}
-        server={{
-          url: "https://imgup-server.herokuapp.com",
-          process: {
-            url: "/api/image/upload",
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${user.accessToken}`,
+    <>
+      <div className="upload-text">
+        <h3>Upload Your Images. All Images are initially saved to the "Default" folder.</h3>
+      </div>
+
+      <div className="filepond-upload">
+        <FilePond
+          files={files}
+          onupdatefiles={setFiles}
+          allowMultiple={false}
+          maxFiles={1}
+          allowRevert={false}
+          server={{
+            url: "https://imgup-server.herokuapp.com",
+            process: {
+              url: "/api/image/upload",
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+              ondata: (formData) => {
+                formData.append("folder", "default");
+                formData.append("status", "private");
+                return formData;
+              },
+              onerror: (response) => {
+                return response.data;
+              },
+              onload: (response) => response.key,
             },
-            ondata: (formData) => {
-              formData.append("folder", "default");
-              formData.append("status", "private");
-              return formData;
-            },
-            onerror: (response) => {
-              return response.data;
-            },
-            onload: (response) => response.key,
-          },
-        }}
-        name="image"
-        labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-        allowFileSizeValidation={true}
-        maxFileSize="5MB"
-        allowFileTypeValidation={true}
-        acceptedFileTypes={["image/png", "image/jpeg"]}
-        onprocessfile={uploadComplete} //show success, empty file and redirect
-      />
-    </div>
+          }}
+          name="image"
+          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+          allowFileSizeValidation={true}
+          maxFileSize="5MB"
+          allowFileTypeValidation={true}
+          acceptedFileTypes={["image/png", "image/jpeg"]}
+          onprocessfile={uploadComplete} //show success, empty file and redirect
+        />
+      </div>
+    </>
   );
 };
 

@@ -39,7 +39,7 @@ export const logIn = async (loginUsername, loginPassword) => {
 };
 
 // register a user
-export const register = async (username, email, password, navigate) => {
+export const register = async (username, email, password, setMessage) => {
   const requestData = {
     headers: {
       "Content-Type": "application/json",

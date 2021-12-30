@@ -15,6 +15,7 @@ const Login = ({ setUser, setMessage }) => {
     try {
       const data = await logIn(loginUsername, loginPassword);
 
+      // if a token is sent back after the request set the user and redirect
       if (data.accessToken) {
         setUser(data);
         navigate("/");

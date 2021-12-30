@@ -1,11 +1,13 @@
 .button-container {
   max-width: 80%;
   min-height: 5rem;
-  margin: 1.5rem auto;
+  margin: 0 auto;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 2rem;
+  /* padding-bottom: 5rem; */
 }
 
 .paginate {

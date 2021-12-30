@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Modal.css";
 
+// reusable modal component split into two functions - one for images and another for prompts
 const Modal = ({ type, link, setModalActive, confirmAction, message }) => {
   const [modalType] = useState(type);
 

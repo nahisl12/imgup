@@ -1,8 +1,9 @@
-import React from "react";
 import "../../Cards/CardStyle.css";
+import React from "react";
+import { Link } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 const ImageCard = ({ link, author, imageId, imageStatus, imageFolder }) => {
   return (

@@ -15,15 +15,19 @@ const Register = ({ setMessage }) => {
   const onSubmitRegister = async (event) => {
     event.preventDefault();
 
+    // check the username is at least 3 letters and password 7 then make request along with other details
+    // to register a new user
     if (username.length >= 3 && password.length > 7) {
       try {
-        const data = await register(username, email, password, navigate);
+        const data = await register(username, email, password, setMessage);
 
         if (data._id) {
           navigate("/login");
+        } else {
+          setMessage(data);
         }
       } catch (error) {
-        setMessage("An error occured while registering");
+        setMessage("There was an error registering");
       }
     } else {
       setMessage("Usernames must be at least 3 characters long and Passwords must be at least 7 characters");

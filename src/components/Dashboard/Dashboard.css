@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   width: 95vw;
   height: auto;
+  padding-bottom: 2rem;
 }
 
 .album-link {
@@ -193,7 +194,7 @@
   padding-left: 1rem;
 }
 
-@media (max-width: 25em) {
+@media (max-width: 30em) {
   .status-form {
     flex-direction: column;
     width: 80%;
@@ -201,5 +202,20 @@
 
   .prompt-container h2 {
     font-size: 1rem;
+  }
+
+  .dashboard-card-container {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .add-folder-form {
+    text-align: center;
+  }
+
+  .dashboard-text {
+    text-align: center;
+    padding-top: 1rem;
+    padding-left: 0;
   }
 }

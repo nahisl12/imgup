@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import SearchBar from "./SearchBar";
 import Paginate from "../Pagination/Paginate";
 import Login from "./Login";
 import Register from "./Register";
-import Dashboard from "../Dashboard/Dashboard";
 import Upload from "./Upload";
 import ImageList from "../Dashboard/Albums/ImageList";
 import ImageFull from "../Dashboard/Albums/ImageFull";
@@ -18,12 +17,8 @@ const UrlRoutes = ({
   filteredImages,
   setMessage,
   onSubmitSearch,
-  pageTotal,
-  currentPage,
-  setCurrentPage,
 }) => {
   const [folders, setFolders] = useState([]);
-  const [pageLimit] = useState(10);
 
   return (
     <>
@@ -37,7 +32,7 @@ const UrlRoutes = ({
                 <h1>No Results</h1>
               ) : (
                 <>
-                  <Paginate searchResults={filteredImages} itemsPerPage={10} />
+                  <Paginate searchResults={filteredImages} itemsPerPage={25} type="homepage" />
                 </>
               )}
             </>
@@ -54,12 +49,14 @@ const UrlRoutes = ({
             <Route
               path="dashboard"
               element={
-                <Dashboard
+                <Paginate
                   user={user}
-                  folders={folders}
+                  searchResults={folders}
+                  type="dashboard"
                   setFolders={setFolders}
                   setMessage={setMessage}
                   getImages={onSubmitSearch}
+                  itemsPerPage={25}
                 />
               }
             ></Route>
@@ -78,7 +75,7 @@ const UrlRoutes = ({
             <Route path="/" />
           </>
         )}
-        <Route path="*" element={<h1>404 Not Found</h1>} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );

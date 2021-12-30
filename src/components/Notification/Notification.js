@@ -10,6 +10,7 @@ const Notification = ({ message, setMessage }) => {
   }, []);
 
   const errorMessage = () => {
+    // sets the error message to an empty string after displaying for 5 seconds
     setTimeout(() => {
       setMessage("");
     }, 5000);

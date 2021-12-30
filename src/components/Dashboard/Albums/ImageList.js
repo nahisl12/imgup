@@ -1,9 +1,11 @@
+import "../Dashboard.css";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUserImages } from "../../../Helpers/Requests";
-import "../Dashboard.css";
+
 import ImageCard from "./ImageCard";
 import ReactPaginate from "react-paginate";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -51,7 +53,7 @@ const ImageList = ({ user, setMessage, itemsPerPage }) => {
   return (
     <div>
       <div className="dashboard-text">
-        <h1>{folderName.toUpperCase()} Gallery</h1>
+        <h2>{folderName.toUpperCase()} Gallery</h2>
       </div>
       <button className="button-blue" id="back-button" onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faArrowLeft} />

@@ -1,14 +1,15 @@
+import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { addFolder, deleteFolder, getUserFolders } from "../../Helpers/Requests";
+import Modal from "../Modal/Modal";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import "./Dashboard.css";
-import Modal from "../Modal/Modal";
-import { addFolder, deleteFolder, getUserFolders } from "../../Helpers/Requests";
 
 const Dashboard = ({ user, folders, setFolders, setMessage, getImages }) => {
-  const [newFolderName, setNewFolderName] = useState();
-  const [folderName, setFolderName] = useState();
+  const [newFolderName, setNewFolderName] = useState(); // name of folder to add
+  const [folderName, setFolderName] = useState(); // name of folder that is clicked for deleting
   const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
@@ -43,16 +44,17 @@ const Dashboard = ({ user, folders, setFolders, setMessage, getImages }) => {
   // Delete folder
   const deleteCurrentFolder = async (event) => {
     try {
-      if (event.currentTarget.value.toLowerCase() !== "default") {
+      if (folderName.toLowerCase() !== "default") {
         const data = await deleteFolder(user, folderName);
 
         if (data) {
           getFolders();
           setModalActive(false);
-          getImages();
+          getImages(); // used to refresh the public images
         }
       } else {
         setMessage("The Default folder cannot be deleted");
+        setModalActive(false);
       }
     } catch (error) {
       setMessage("An error occured while deleting the folder. Try Again");
@@ -74,7 +76,7 @@ const Dashboard = ({ user, folders, setFolders, setMessage, getImages }) => {
   return (
     <div>
       <div className="dashboard-text">
-        <h1>Welcome to your dashboard {user.username}</h1>
+        <h2>Welcome to your dashboard {user.username}</h2>
       </div>
 
       {/* FORM FOR ADDING A NEW FOLDER */}

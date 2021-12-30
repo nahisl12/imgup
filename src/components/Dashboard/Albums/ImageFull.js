@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../Dashboard.css";
 import { changeImageStatus, deleteUserImage } from "../../../Helpers/Requests";
 import Modal from "../../Modal/Modal";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import "../Dashboard.css";
 
 const ImageFull = ({ folders, user, getImages, setMessage }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { link, author, id, status, folder } = location.state;
+  const { link, author, id, status, folder } = location.state; // data from the link page
   const [newStatus, setNewStatus] = useState(status);
   const [newFolder, setNewFolder] = useState(folder);
   const [modalActive, setModalActive] = useState(false);
@@ -54,7 +55,7 @@ const ImageFull = ({ folders, user, getImages, setMessage }) => {
   return (
     <>
       <button className="button-blue" id="back-button" onClick={() => navigate(-1)}>
-        <FontAwesomeIcon icon={faArrowLeft} className="faArrowLeft" onClick={deleteImage} />
+        <FontAwesomeIcon icon={faArrowLeft} className="faArrowLeft" />
       </button>
       <div className="image-container">
         <div className="image-outer">
