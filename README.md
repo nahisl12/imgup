@@ -10,14 +10,14 @@ ImgUp is a Full-stack Web Application for uploading images with functionality fo
 
 #### Front-end/Client
 
-- (ReactJS)[https://reactjs.org/]
-- (FilePond)[https://pqina.nl/filepond/]
+- [ReactJS](https://reactjs.org/)
+- [FilePond](https://pqina.nl/filepond/)
 
 #### Back-end/Server
 
-- (ExpressJS)[https://expressjs.com/]
-- (MongoDB)[https://www.mongodb.com/]
-- (Amazon Web Services)[https://aws.amazon.com/]
+- [ExpressJS](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Amazon Web Services](https://aws.amazon.com/)
 
 ### This repository is for the front-end client. The back-end server repository can be found [here](https://github.com/nahisl12/imgup-api)
 
