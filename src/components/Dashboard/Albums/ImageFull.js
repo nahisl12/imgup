@@ -43,6 +43,7 @@ const ImageFull = ({ folders, user, getImages, setMessage }) => {
       const data = await deleteUserImage(user, id);
 
       if (data) {
+        getImages(); // update the public images after deleting an image incase it is public
         navigate(-1);
       } else {
         setMessage("There was an error with the request");
