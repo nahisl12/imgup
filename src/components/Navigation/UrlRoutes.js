@@ -29,7 +29,7 @@ const UrlRoutes = ({
             <>
               <SearchBar onInputChange={onInputChange} />
               {searchResults.length === 0 ? (
-                <h1>No Results</h1>
+                <h1 className="images-not-found">No Images Found</h1>
               ) : (
                 <>
                   <Paginate searchResults={filteredImages} itemsPerPage={25} type="homepage" />

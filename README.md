@@ -1,9 +1,25 @@
-### Live application can be previewed at [imgup](https://imgup-imageuploader.netlify.app/)
+# ImgUp Image Upoading Web Application
 
-# imgup application
+## **Description**
 
-## This project is a full-stack website/application for image uploading made using ReactJS for the front-end, NodeJs/Express and MongDB for the back-end with JWT for authentification.
-## This repository is for the front-end. The back-end repo can be found [here](https://github.com/nahisl12/imgup-api)
+ImgUp is a Full-stack Web Application for uploading images with functionality for uploading/updating/deleting images & creating folders/ablums to put them into.
+
+### The live application can be previewed at [imgup](https://imgup-uploader.netlify.app/)
+
+### Technology Used
+
+#### Front-end/Client
+
+- (ReactJS)[https://reactjs.org/]
+- (FilePond)[https://pqina.nl/filepond/]
+
+#### Back-end/Server
+
+- (ExpressJS)[https://expressjs.com/]
+- (MongoDB)[https://www.mongodb.com/]
+- (Amazon Web Services)[https://aws.amazon.com/]
+
+### This repository is for the front-end client. The back-end server repository can be found [here](https://github.com/nahisl12/imgup-api)
 
 ### `npm start`
 

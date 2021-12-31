@@ -8,8 +8,7 @@ import UrlRoutes from "./components/Navigation/UrlRoutes";
 import Footer from "./components/Footer/Footer";
 
 // TODOS
-// add website logo to nav bar
-// validation (back-end) for emails and passwords
+// make changing site colours easier - the website looks very dark on phone
 
 function App() {
   const [user, setUser] = useState(null);
